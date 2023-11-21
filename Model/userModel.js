@@ -10,8 +10,12 @@ mongoose
   });
 
 const userSchema = new mongoose.Schema({
-    name: String,
-    email: String
+    "Subscription Type": String,
+    Country: String,
+    Age: Number,
+    Gender: String,
+    Device: String,
+    "Plan Duration" : String
 })
 
 const userModel = mongoose.model("User", userSchema);
