@@ -8,7 +8,7 @@ userRouter
   .route("/user")
   .get(async (req, res) => {
     const { page = 1, limit = 10 } = req.query;
-    const users = await userModel
+    const users = await carModel
       .find({})
       .limit(limit * 1)
       .skip(page - 1);
