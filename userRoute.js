@@ -87,9 +87,11 @@ userRouter.route("/car/filter").get(async (req, res) => {
     const skip = (page - 1) * pageRecords;
 
     const countQuery = { ...query };
+
     const cars = await carModel.find(query).skip(page).limit(pageRecords);
 
     const numberOfRecords = await carModel.countDocuments(countQuery);
+    const totalPages = Math.ceil(numberOfRecords / pageRecords);
     const filterNumber = {};
     for (const key in query) {
       if (Object.hasOwnProperty.call(query, key)) {
@@ -97,7 +99,15 @@ userRouter.route("/car/filter").get(async (req, res) => {
         filterNumber[key] = count;
       }
     }
-    res.status(200).json({ numberOfRecords, filterNumber, cars });
+    res
+      .status(200)
+      .json({
+        numberOfRecords,
+        totalPages,
+        currentpage: page, pageRecords,
+        filterNumber,
+        cars,
+      });
   } catch (error) {
     console.log("error-/car/filter:", error);
     res.status(400).json({ message: "Server error-/car/filter" });
