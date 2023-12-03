@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const mongoose = require("./Model/userModel");
-const userModel = require("./Model/userModel");
+const carModel = require("./Model/userModel");
 const userRouter = express.Router();
 
 userRouter
@@ -16,17 +16,18 @@ userRouter
     // pass page and limit in the params in postman or any IDE for testing the APIs. limit to display number of data and page for how many will diplay in page one
   })
   .post(async (req, res) => {
-    const { name, email } = req.body;
+    const { Make,Model, Version, Price, Make_Year, CC, Assembly, Mileage, Registered_City, Transmission } = req.body;
     // adding these fields to the database
-    const user = await userModel.create({
+    const user = await carModel.create({
       ...req.body,
     });
     const result = await user.save();
     res.send(result);
+    console.log(result);
   });
 
 userRouter.route("/simple").get(async (req, res) => {
-  const user = await userModel.find(req.query);
+  const user = await carModel.find(req.query);
   res.status(200).json({ user });
 });
 

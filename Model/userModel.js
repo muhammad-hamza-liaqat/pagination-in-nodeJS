@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 
+
+// database connection .... 
 mongoose
   .connect("mongodb://localhost:27017/pagination")
   .then(() => {
@@ -9,15 +11,21 @@ mongoose
     console.log("database not connected!");
   });
 
-const userSchema = new mongoose.Schema({
-    "Subscription Type": String,
-    Country: String,
-    Age: Number,
-    Gender: String,
-    Device: String,
-    "Plan Duration" : String
+
+// schema
+const carSchema = new mongoose.Schema({
+    Make: String,
+    Model: String,
+    Version: String,
+    Price: Number,
+    Make_Year: String,
+    CC : String,
+    Assembly: String,
+    Mileage: String,
+    Registered_City: String,
+    Transmission: String
 })
 
-const userModel = mongoose.model("User", userSchema);
+const carModel = mongoose.model("Car", carSchema);
 
-module.exports = userModel
+module.exports = carModel
