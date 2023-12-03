@@ -85,8 +85,10 @@ userRouter.route("/car/filter").get(async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const pageRecords = parseInt(req.query.pageRecords) || 10;
     const skip = (page - 1) * pageRecords;
+
     const countQuery = { ...query };
-    const cars = await carModel.find(query);
+    const cars = await carModel.find(query).skip(page).limit(pageRecords);
+
     const numberOfRecords = await carModel.countDocuments(countQuery);
     const filterNumber = {};
     for (const key in query) {
